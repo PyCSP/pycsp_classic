@@ -18,6 +18,7 @@ This is mainly a maintenance repository for the "classic" version of PyCSP which
 implement CSP processes. For the more recent implementations, please see 
 https://github.com/runefriborg/pycsp
 
+More information (and history) can also be found at http://www.cs.uit.no/~johnm/code/PyCSP/
 
 Acknowledgements: 
 - Thanks to Robert Brewer (rwb123@gmail.com) for patches adding 
