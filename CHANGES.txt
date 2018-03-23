@@ -1,3 +1,7 @@
+0.3.0-0.3.0b
+-----------
+* This is simply a conversion to Python 3. Pyro and remote channels are not working yet. 
+
 0.2.3-0.3.0
 -----------
 * Alternative and Sequence now return a list with the return values from 

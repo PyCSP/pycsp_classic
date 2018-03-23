@@ -15,8 +15,6 @@ c) how to do this cleanly.
 A more iterative approach will be followed.
 
 
-
-
 Acknowledgements: 
 - Thanks to Robert Brewer (rwb123@gmail.com) for patches adding 
   Timer, Buffered channels, etc... (see CHANGES). 
