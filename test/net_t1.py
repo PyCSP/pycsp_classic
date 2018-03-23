@@ -9,41 +9,41 @@ import time
 
 @process
 def test1():
-    print "Test1"
+    print("Test1")
     c = One2OneChannel()
     registerNamedChannel(c, "foo1")
     signalReady()
-    print "- Trying to read from channel"
-    print "-", c.read()
+    print("- Trying to read from channel")
+    print("-", c.read())
     time.sleep(1)
-    print "- poisoning channel"
+    print("- poisoning channel")
     poisonChannel(c.read)  # this works, as well as poisoning the channel itself. 
-    print "- done"
+    print("- done")
 
 @process
 def test2(): 
-    print "Test2"
+    print("Test2")
     c = One2OneChannel()
     registerNamedChannel(c, "foo2")
     signalReady()
-    print "- Trying to read from channel"
-    print "-", c.read()
-    print "- Another read (should be poisoned)"
+    print("- Trying to read from channel")
+    print("-", c.read())
+    print("- Another read (should be poisoned)")
     r = c.read()
-    print "-", r
-    print "---poison failed !!!!"
+    print("-", r)
+    print("---poison failed !!!!")
 
 @process
 def test3():
-    print "Test3 - tests an input guard across the network"
+    print("Test3 - tests an input guard across the network")
     ca = One2OneChannel()
     cb = One2OneChannel()
     registerNamedChannel(ca, "foo3a")
     registerNamedChannel(cb, "foo3b")
     signalReady()
-    print "- Trying to read from channel"
-    print "- ", ca.read()
-    print "- waiting 3 seconds before writing to channel b"
+    print("- Trying to read from channel")
+    print("- ", ca.read())
+    print("- waiting 3 seconds before writing to channel b")
     time.sleep(3)
     cb.write("here you go")
     
@@ -59,5 +59,5 @@ Sequence(test1())
 Sequence(test2())
 Sequence(test3())
 ctrl.write("done")
-print "all tests done"
+print("all tests done")
 time.sleep(1)

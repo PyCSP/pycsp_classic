@@ -16,7 +16,7 @@ N_ITERS = 1000
 
 @process
 def server():
-    print "# Server"
+    print("# Server")
     c1 = One2OneChannel()
     c2 = One2OneChannel()
     registerNamedChannel(c1, "to-serv")
@@ -38,11 +38,11 @@ def server():
 
 @process
 def client():
-    print "# Client"
+    print("# Client")
     c1 = getNamedChannel("to-serv")
     c2 = getNamedChannel("from-serv")
     # phase 1: send one way (client->master)
-    print "results_oneway = ["
+    print("results_oneway = [")
     for i in range(N_WARM):
         c1.write(42)
     for n in range(N_ROUNDS):
@@ -51,10 +51,10 @@ def client():
             c1.write(42)
         t1 = time.time()
         dtr = 1000000.0 * (t1-t0) / N_ITERS
-        print "%f, # microseconds per send" % (dtr, )
+        print("%f, # microseconds per send" % (dtr, ))
     # phase 2: send both ways (client->master, master->client)
-    print "]"
-    print "results_twoway = ["
+    print("]")
+    print("results_twoway = [")
     for i in range(N_WARM):
         c1.write(42)
         c2.read()
@@ -65,16 +65,16 @@ def client():
             c2.read()
         t1 = time.time()
         dtr = 1000000.0 * (t1-t0) / N_ITERS
-        print "%f, # microseconds per send" % (dtr, )
-    print "]"
+        print("%f, # microseconds per send" % (dtr, ))
+    print("]")
         
 
 if sys.argv[1].lower() == "-s":
-    print "starting server"
+    print("starting server")
     Sequence(server())
 elif sys.argv[1].lower() == "-c":
     Sequence(client())
 else:
-    print "Usage: ", sys.argv[0], " [-s/-c], where -s means server end and -c means client end"
-    print "The client side prints benchmark output"
+    print("Usage: ", sys.argv[0], " [-s/-c], where -s means server end and -c means client end")
+    print("The client side prints benchmark output")
     

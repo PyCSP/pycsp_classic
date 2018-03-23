@@ -7,14 +7,10 @@ Copyright (c) 2007 John Markus Bjørndalen, jmb@cs.uit.no.
 See LICENSE.txt for licensing details (MIT License). 
 """
 
-from __future__ import with_statement
 import time
 import threading
 import types
-import Guards
-import Channels
-from Guards import *
-from Channels import *
+from .Channels import *
 import types
 
 def process(func):
@@ -36,7 +32,7 @@ class Process(threading.Thread):
         try:
             # Store the returned value from the process
             self.retval = self.fn(*self.args, **self.kwargs)
-        except ChannelPoisonException, e:
+        except ChannelPoisonException as e:
             # look for channels and channel ends
             for ch in [x for x in self.args if isinstance(x, ChannelEnd) or isinstance(x, Channel)]:
                 ch.poison()

@@ -7,7 +7,6 @@ Copyright (c) 2007 John Markus Bjørndalen, jmb@cs.uit.no.
 See LICENSE.txt for licensing details (MIT License). 
 """
 
-from __future__ import with_statement
 import threading
 
 class Barrier(object):
@@ -19,7 +18,7 @@ class Barrier(object):
             self.nEnrolled = nEnrolled
             self.countDown = nEnrolled
             if nEnrolled < 0:
-                raise "*** Attempth to set a negative nEnrolled on a barrier"
+                raise Exception("*** Attempth to set a negative nEnrolled on a barrier")
     def sync(self):
         "Synchronize the invoking process on this barrier."
         with self.lock:
@@ -41,5 +40,5 @@ class Barrier(object):
                 self.countDown = self.nEnrolled
                 self.lock.notifyAll()
             elif self.countDown < 0:
-                raise "*** A process has resigned on a barrier when no processes were enrolled ***"
+                raise Exception("*** A process has resigned on a barrier when no processes were enrolled ***")
         

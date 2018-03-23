@@ -58,7 +58,7 @@ def init_server():
     if server_initialized:
         return None
     
-    print "Initializing server"
+    print("Initializing server")
     
     Pyro.core.initServer() # Set arg 0 if suppressing server
     Pyro.config.PYRO_NS_DEFAULTGROUP = group
@@ -104,8 +104,8 @@ def _get_robject_uri(obj_name):
     try:
         URI = name_server.resolve(group + obj_name)
         # print 'URI:',URI
-    except Pyro.core.PyroError, x:
-        print 'Couldn\'t bind object, nameserver says:', x
+    except Pyro.core.PyroError as x:
+        print('Couldn\'t bind object, nameserver says:', x)
         raise SystemExit
     return URI
 
@@ -156,7 +156,7 @@ def provide_object(obj, service_name = None):
         return (serv_daemon.connect(serv_obj), serv_obj)
 
     sname = group + service_name
-    print "Registering obj as service name", sname
+    print("Registering obj as service name", sname)
     # Remove old registration (if any) for our name
     name_server = find_nameserver()
     try:
@@ -176,15 +176,15 @@ if __name__ == "__main__":
         def __init__(s):
             s._vals = []
         def append(s, obj):
-            print "hoi", obj
+            print("hoi", obj)
             s._vals.append(obj)
         def vals(s):
             return s._vals
             
     provide_object(foo(), "lst")
     o = get_robject("lst", False)
-    print o
-    print o.__doc__
+    print(o)
+    print(o.__doc__)
     o.append("a")
     o.append("b")
-    print "list is now", o.vals()
+    print("list is now", o.vals())

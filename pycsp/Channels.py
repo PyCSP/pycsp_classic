@@ -5,9 +5,8 @@ CSP Channels.
 Copyright (c) 2007 John Markus Bjørndalen, jmb@cs.uit.no.
 See LICENSE.txt for licensing details (MIT License). 
 """
-from __future__ import with_statement
 import threading
-from Guards import Guard
+from .Guards import Guard
 
 # ------------------------------------------------------------
 # Some helper decorators, functions and classes.

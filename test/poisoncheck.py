@@ -10,7 +10,7 @@ from pycsp.plugNplay import *
 @process
 def PoisonTest(cout):
     for i in range(100):
-        print i
+        print(i)
         cout(i)
     poisonChannel(cout)
 
@@ -25,13 +25,13 @@ def test():
              Identity(b.read, c.write),
              Identity(c.read, d.write))
     for ch in [a,b,c,d]:
-        print "State of channel", ch.name, "- poisoned is", ch.poisoned
+        print("State of channel", ch.name, "- poisoned is", ch.poisoned)
 
 @process
 def PoisonReader(cin):
     for i in range(100):
         r = cin()
-        print i, r
+        print(i, r)
     cin.poison()
 
 @process
@@ -46,7 +46,7 @@ def test2():
     Parallel(Count(a.write),
              Count(a.write),
              PoisonReader(a.read))
-    print "Processes done"
+    print("Processes done")
 
 if __name__ == "__main__":
     test()
