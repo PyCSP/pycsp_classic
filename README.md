@@ -14,6 +14,10 @@ b) why the different constructs where made in the first place, and
 c) how to do this cleanly. 
 A more iterative approach will be followed.
 
+This is mainly a maintenance repository for the "classic" version of PyCSP which only used threads to 
+implement CSP processes. For the more recent implementations, please see 
+https://github.com/runefriborg/pycsp
+
 
 Acknowledgements: 
 - Thanks to Robert Brewer (rwb123@gmail.com) for patches adding 
