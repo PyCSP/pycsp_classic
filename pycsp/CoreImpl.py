@@ -74,9 +74,6 @@ class Alternative(object):
     """Alternative. Selects from a list of guards."""
     def __init__(self, *guards):
         self.guards = guards
-        # set up a reversed guards list (used in _disableGuards...)
-        self.rguards = list(guards)  # converts argument tuple to a new list
-        self.rguards.reverse()
         self.selected = None
         self._altMonitor = threading.Condition() 
         self._cond = self._altMonitor # for @synchronized
@@ -97,12 +94,12 @@ class Alternative(object):
     def _disableGuards(self):
         "Disables guards in reverse order from _enableGuards()."
         if self.selected == None:
-            for g in self.rguards:
+            for g in reversed(self.guards):
                 if g.disable():
                     self.selected = g
         else:
             # TODO: should perhaps check to see whether entire range was visited in "_enableGuards"
-            for g in self.rguards:
+            for g in reversed(self.guards):
                 g.disable()
 
     def select(self):
