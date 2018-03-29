@@ -22,6 +22,7 @@ def Consumer(cin):
           (dt, dt, N, tchan, tchan * 1000000))
     print("consumer done, posioning channel")
     poisonChannel(cin)
+    results.append(tchan * 1000000)
 
 def CommsTimeBM():
     # Create channels
@@ -39,10 +40,12 @@ def CommsTimeBM():
              Successor(b.read, c.write),               # feeding back to prefix
              Consumer(d.read))                         # timing process
 
+results = []
 N_BM = 10
 for i in range(N_BM):
     print("----------- run %d/%d -------------" % (i+1, N_BM))
     CommsTimeBM()
+print("Min {} avg {} max {}".format(min(results), sum(results)/len(results), max(results)))
 
 # A bit of a hack, but windows does not have uname()
 try:

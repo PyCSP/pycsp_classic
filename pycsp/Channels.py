@@ -35,8 +35,7 @@ def poisonChannel(ch):
     ch.poison()
     
 class ChannelPoisonException(Exception): 
-    def __init__(self):
-        pass
+    pass
     
 # ------------------------------------------------------------
 # Channel Ends
