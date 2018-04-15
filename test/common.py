@@ -7,3 +7,8 @@
 import sys
 sys.path.append("..")
 import pycsp
+
+
+def avg(vals):
+    "Returns the average of values"
+    return sum(vals) / len(vals)
