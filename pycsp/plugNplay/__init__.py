@@ -25,7 +25,7 @@ def Prefix(cin, cout, prefixItem=None):
         t = cin()
 
 @process
-def Delta2(cin, cout1, cout2):
+def ParDelta2(cin, cout1, cout2):
     # We need two helper processes (_sender) to send on the two output channels in parallel. 
     # The overhead of this is probably going to be fairly high as we're starting and stopping threads for every iteration. 
     # We could optimize it with re_usable threads, but if we create a separate channel to each of them we're more or
@@ -56,6 +56,8 @@ def SeqDelta2(cin, cout1, cout2):
         t = cin()
         cout1(t)
         cout2(t)
+
+Delta2 = ParDelta2
             
 @process
 def Successor(cin, cout):
