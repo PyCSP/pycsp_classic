@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: latin-1 -*-
-from common import *
-from pycsp import *
-from pycsp.plugNplay import *
-from pycsp.net import *
+
+import time
+import common    # noqa : E402
+from pycsp import process, Sequence, poisonChannel, Alternative
+from pycsp.net import getNamedChannel
+
 
 @process
 def test1():
@@ -16,6 +18,7 @@ def test1():
     c.write("I'm here")
     print("---poison failed   !!!!!")
 
+
 @process
 def test2():
     print("Test2")
@@ -27,7 +30,8 @@ def test2():
     print("- poisoning channel method")
     time.sleep(1)
     poisonChannel(c.read)
-        
+
+
 @process
 def test3():
     print("Test3")
@@ -48,6 +52,7 @@ def waitForSignal():
     "Waits until the other side has registered its channels"
     global ctrl
     ctrl.read()
+
 
 ctrl = getNamedChannel("foo")
 Sequence(test1())

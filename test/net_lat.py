@@ -1,18 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: latin-1 -*-
 """
-Measuring one-way and two-way (two channels) latency for PyCSP over network channels. 
+Measuring one-way and two-way (two channels) latency for PyCSP over network channels.
 """
-from common import *
-from pycsp import *
-from pycsp.plugNplay import *
-from pycsp.net import *
-import time
+
 import sys
+import time
+import common    # noqa : E402
+from pycsp import process, Sequence, One2OneChannel
+from pycsp.net import registerNamedChannel, getNamedChannel
 
 N_WARM = 10
 N_ROUNDS = 10
 N_ITERS = 1000
+
 
 @process
 def server():
@@ -36,6 +37,7 @@ def server():
             c1.read()
             c2.write(42)
 
+
 @process
 def client():
     print("# Client")
@@ -50,7 +52,7 @@ def client():
         for i in range(N_ITERS):
             c1.write(42)
         t1 = time.time()
-        dtr = 1000000.0 * (t1-t0) / N_ITERS
+        dtr = 1000000.0 * (t1 - t0) / N_ITERS
         print("%f, # microseconds per send" % (dtr, ))
     # phase 2: send both ways (client->master, master->client)
     print("]")
@@ -64,10 +66,10 @@ def client():
             c1.write(42)
             c2.read()
         t1 = time.time()
-        dtr = 1000000.0 * (t1-t0) / N_ITERS
+        dtr = 1000000.0 * (t1 - t0) / N_ITERS
         print("%f, # microseconds per send" % (dtr, ))
     print("]")
-        
+
 
 if sys.argv[1].lower() == "-s":
     print("starting server")
@@ -77,4 +79,3 @@ elif sys.argv[1].lower() == "-c":
 else:
     print("Usage: ", sys.argv[0], " [-s/-c], where -s means server end and -c means client end")
     print("The client side prints benchmark output")
-    

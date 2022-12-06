@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: latin-1 -*-
-from common import *
-from pycsp import *
-from pycsp.plugNplay import *
-from pycsp.net import *
+
+import common    # noqa : E402
+from pycsp import process, One2OneChannel, poisonChannel, Sequence
+from pycsp.net import registerNamedChannel
 import time
 
 
@@ -17,11 +17,12 @@ def test1():
     print("-", c.read())
     time.sleep(1)
     print("- poisoning channel")
-    poisonChannel(c.read)  # this works, as well as poisoning the channel itself. 
+    poisonChannel(c.read)  # this works, as well as poisoning the channel itself.
     print("- done")
 
+
 @process
-def test2(): 
+def test2():
     print("Test2")
     c = One2OneChannel()
     registerNamedChannel(c, "foo2")
@@ -32,6 +33,7 @@ def test2():
     r = c.read()
     print("-", r)
     print("---poison failed !!!!")
+
 
 @process
 def test3():
@@ -46,12 +48,13 @@ def test3():
     print("- waiting 3 seconds before writing to channel b")
     time.sleep(3)
     cb.write("here you go")
-    
-    
+
+
 def signalReady():
     "signals that this end has registered the necessary channels for this test"
     global ctrl
-    ctrl.write("ready") 
+    ctrl.write("ready")
+
 
 ctrl = One2OneChannel()
 registerNamedChannel(ctrl, "foo")

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: latin-1 -*-
-# 
+#
 # see http://docs.python.org/dist/dist.html
-# 
+#
 from distutils.core import setup
 
 

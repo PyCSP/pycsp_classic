@@ -4,9 +4,8 @@
 Copyright (c) 2007 John Markus Bjørndalen, jmb@cs.uit.no.
 See LICENSE.txt for licensing details (MIT License).
 """
-from common import *
-from pycsp import *
-from pycsp.plugNplay import *
+import common    # noqa : E402
+from pycsp import Process, Parallel, poisonChannel, ChannelPoisonException, One2OneChannel, One2AnyChannel, Any2OneChannel, Any2AnyChannel, BufferedOne2OneChannel
 import threading
 import time
 
@@ -14,7 +13,7 @@ N = 5
 
 
 def WN(cout):
-    pid = threading.currentThread()
+    pid = threading.current_thread()
     for i in range(N):
         print("  [%s] Writing %d" % (pid, i))
         cout(i)
@@ -22,8 +21,9 @@ def WN(cout):
     print("Writer [%s] wrote all" % pid)
     poisonChannel(cout)
 
+
 def RN(cin):
-    pid = threading.currentThread()
+    pid = threading.current_thread()
     for i in range(N):
         v = cin()
         print("  [%s] Reading %d" % (pid, v))
@@ -31,25 +31,28 @@ def RN(cin):
     print("Reader [%s] got all" % pid)
     poisonChannel(cin)
 
+
 # TODO: Robert
 def FastWN(cout):
-    pid = threading.currentThread()
+    pid = threading.current_thread()
     for i in range(50):
         print("  [%s] Writing %d" % (pid, i))
         cout(i)
-        #time.sleep(0.1)
+        # time.sleep(0.1)
     print("Writer [%s] wrote all" % pid)
     poisonChannel(cout)
 
+
 # TODO: Robert
 def FastRN(cin):
-    pid = threading.currentThread()
+    pid = threading.current_thread()
     try:
         while 1:
             v = cin()
             print("  [%s] Reading %d" % (pid, v))
     except ChannelPoisonException:
         print('Reader [%s] caught poison exception' % pid)
+
 
 def o2otest():
     print("-----------------------")
@@ -59,6 +62,7 @@ def o2otest():
     Parallel(Process(WN, c.write),
              Process(RN, c.read))
 
+
 def o2atest():
     print("-----------------------")
     print("Testing One2Any Channel")
@@ -67,7 +71,8 @@ def o2atest():
     Parallel(Process(WN, c.write),
              Process(RN, c.read),
              Process(RN, c.read))
-    
+
+
 def a2otest():
     print("-----------------------")
     print("Testing Any2One Channel")
@@ -77,12 +82,13 @@ def a2otest():
              Process(WN, c.write),
              Process(RN, c.read))
 
+
 def a2atest():
     print("-----------------------")
     print("Testing Any2Any Channel")
     print("All readers and writers should report as done")
     # TODO: potential race if one of the writers/readers finish early and poison the channel!
-    # the same problem might occur above as well! 
+    # the same problem might occur above as well!
     c = Any2AnyChannel()
     Parallel(Process(WN, c.write),
              Process(WN, c.write),

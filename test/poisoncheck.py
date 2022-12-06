@@ -3,9 +3,10 @@
 # Copyright (c) 2007 John Markus Bjørndalen, jmb@cs.uit.no.
 # See LICENSE.txt for licensing details (MIT License).
 
-from common import *
-from pycsp import *
-from pycsp.plugNplay import *
+import common    # noqa : E402
+from pycsp import process, One2OneChannel, Any2OneChannel, BlackHoleChannel, Parallel, poisonChannel
+from pycsp.plugNplay import Identity
+
 
 @process
 def PoisonTest(cout):
@@ -13,6 +14,7 @@ def PoisonTest(cout):
         print(i)
         cout(i)
     poisonChannel(cout)
+
 
 def test():
     a = One2OneChannel("a")
@@ -24,8 +26,9 @@ def test():
              Identity(a.read, b.write),
              Identity(b.read, c.write),
              Identity(c.read, d.write))
-    for ch in [a,b,c,d]:
+    for ch in [a, b, c, d]:
         print("State of channel", ch.name, "- poisoned is", ch.poisoned)
+
 
 @process
 def PoisonReader(cin):
@@ -34,6 +37,7 @@ def PoisonReader(cin):
         print(i, r)
     cin.poison()
 
+
 @process
 def Count(cout):
     i = 0
@@ -41,12 +45,14 @@ def Count(cout):
         cout(i)
         i += 1
 
+
 def test2():
     a = Any2OneChannel()
     Parallel(Count(a.write),
              Count(a.write),
              PoisonReader(a.read))
     print("Processes done")
+
 
 if __name__ == "__main__":
     test()

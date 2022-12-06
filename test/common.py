@@ -6,7 +6,7 @@
 # trick to allow us to import pycsp without setting PYTHONPATH
 import sys
 sys.path.append("..")
-import pycsp
+import pycsp    # noqa E402
 
 
 def avg(vals):
