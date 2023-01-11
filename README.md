@@ -15,8 +15,8 @@ c) how to do this cleanly.
 A more iterative approach will be followed.
 
 This is mainly a maintenance repository for the "classic" version of PyCSP which only used threads to 
-implement CSP processes. For the more recent implementations, please see 
-https://github.com/runefriborg/pycsp
+implement CSP processes. For more recent implementations, please see 
+https://pycsp.github.io/ and https://github.com/PyCSP. 
 
 More information (and history) can also be found at http://www.cs.uit.no/~johnm/code/PyCSP/
 
